@@ -5,7 +5,6 @@ sequenceDiagram
     participant O as Organization
     participant G as Controller
     participant V as Validator
-    participant VT as Validator TEE
     participant C as Consensus (TEE)
     participant DM as Delegate Module (TEE)
 
