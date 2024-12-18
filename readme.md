@@ -6,11 +6,11 @@ The Secure Genome System is a privacy-preserving platform for genetic data proce
 
 ## System Main flow
 
-![System Main Flow](docs/flow/system-flow.md)
+- [System Main Flow](docs/flow/system-flow.md)
 
 ### Organization Flow
 
-![Organization Flow](docs/flow/organization-flow.md)
+- [Organization Flow](docs/flow/organization-flow.md)
 
 ## Core Components
 
