@@ -5,35 +5,36 @@ sequenceDiagram
     participant O as Organization
     participant G as Controller
     participant V as Validator
-    participant C as Consensus (TEE)
+    participant P as Processor (TEE)
     participant DM as Delegate Module (TEE)
 
 
 
-    %% One-time User Validator Setup
-    Note over U,S: One-time Validator PRE Setup
-    U->>U: 1. Generate re-encryption key (rk)<br/>for each validator <br/> 2. Encrypt for DM TEE
-    U->>S: Store encrypted re-encryption keys
-    U->>G: Submit metadata/hash
-
-    %% One-time C-DM-Organziation PRE Setup
-    Note over O,DM: One-time C-DM-Organziation PRE Setup
+    %% One-time P-DM-Organziation PRE Setup
+    Note over O,DM: Organization Registration
     O->>G: Register Organization
     G->>G: Check requirements for registration
-    G->>C: Register Re-encryption key for organization
-    C->>C: Create Re-encryption key for organization (C-O)
-    C->>DM: Send re-encryption key (C-O)
-    DM->>DM: store C-O re-encryption key
+    G->>P: Register Re-encryption key for organization
+    P->>P: Create Re-encryption key for organization (P-O)
+    P->>DM: Send re-encryption key (P-O)
+    DM->>DM: store P-O re-encryption key
 
+    %% Re-encryption key setup
+    Note over U,G: Re-encryption key setup
+    G-->>U: List of un-authorized validators
+    U->>U: 1. Generate re-encryption key (rk)<br/>for each validator <br/> 2. Encrypt for DM TEE
+    U->>S: Store encrypted re-encryption keys
+    U->>G: Mapping (user - validator RK) to re-encryption keys
 
     %% Data Upload with PRE
     Note over U,V: Data Upload Phase
     U->>U: Encrypt data with their own public key
     U->>S: Store encrypted data + public key
-    U->>G: Submit metadata/hash
+    U->>G: Submit data's id
+    G->>G: Mapping file id to user
 
     %% Validator Processing
-    Note over S,C: Validation Phase
+    Note over S,P: Validation Phase
     V->>G: Get data location/metadata
     G-->>V: Return metadata
     V->>S: Get data + re-encryption key (encrypted)
@@ -47,12 +48,12 @@ sequenceDiagram
     V->>V: 1. Decrypt with validator key<br/>2. Validate and label data <br/> 3. Encrypt for Consensus module
 
     %% Consensus Phase
-    Note over C,S: Consensus / Validate Phase
-    V->>C: Send processed data (C-encrypted)
-    C->>C: 1. Process validations<br/>2. Calculate risk scores<br/>3. Handle rewards/slashing
-    C->>C: Encrypt data for itself (C-encrypted)
-    C->>S: Store encrypted processed data
-    C->>G: Submit result metadata/hash
+    Note over P,S: Consensus / Validate Phase
+    V->>P: Send processed data (P-encrypted)
+    P->>P: 1. Process validations<br/>2. Calculate risk scores<br/>3. Handle rewards/slashing
+    P->>P: Encrypt data for PRE
+    P->>S: Store encrypted processed data
+    P->>G: Submit result id
 
     %% Organization Access
     Note over S,G: Organization Access Phase
