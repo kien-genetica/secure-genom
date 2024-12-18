@@ -50,11 +50,11 @@ The Secure Genome System is a privacy-preserving platform for genetic data proce
   - Result labeling and scoring
   - Consensus preparation
 
-### 4. Consensus Module (TEE)
+### 4. Processor Module (TEE)
 
 - **Definition**:
-  - A consensus module a module in our system that handles the consensus process.
-- **Purpose**: Secure consensus, reward management for validators submitted results
+  - A processor module is a module in our system that handles the processing of the data.
+- **Purpose**: Secure consensus, reward management for validators submitted results, data processing
 - **Responsibilities**:
   - Validator result aggregation
   - Data validation / Risk score calculation #TODO: can define another module for this
@@ -87,7 +87,7 @@ The Secure Genome System is a privacy-preserving platform for genetic data proce
 
 1. Organization registers through Controller
 2. Controller verifies registration requirements
-3. Consensus module generates re-encryption key
+3. Processor module generates re-encryption key
 4. Key is transmitted to Delegate Module
 5. Delegate Module stores C-O re-encryption key
 
