@@ -8,6 +8,10 @@ The Secure Genome System is a privacy-preserving platform for genetic data proce
 
 ![System Main Flow](docs/flow/system-flow.png)
 
+### Organization Flow
+
+![Organization Flow](docs/flow/organization-flow.png)
+
 ## Core Components
 
 ### 1. Storage Service
