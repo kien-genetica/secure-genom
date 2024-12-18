@@ -4,7 +4,6 @@ sequenceDiagram
     participant G as Controller
     participant PM as Payment Module
     participant S as Storage
-    participant C as Consensus TEE
     participant DM as Delegate Module TEE
 
     %% Setup & Payment Phase
