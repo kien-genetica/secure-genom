@@ -4,7 +4,7 @@ participant U as User
 participant O as Organization
 participant G as Controller
 participant V as Validator
-participant VT as Validator TEE
+participant VT as Validator (TEE)
 participant C as Consensus (TEE)
 participant DM as Delegate Module (TEE)
 participant S as Storage
