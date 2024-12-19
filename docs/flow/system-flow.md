@@ -22,7 +22,7 @@ sequenceDiagram
     %% Re-encryption key setup
     Note over U,G: Re-encryption key setup
     G-->>U: List of un-authorized validators
-    U->>U: 1. Generate re-encryption key (rk)<br/>for each validator <br/> 2. Encrypt for DM TEE
+    U->>U: 1. Generate re-encryption key (rk)<br/>for each validator <br/> 2. Encrypt RK for DM TEE
     U->>S: Store encrypted re-encryption keys
     U->>G: Mapping (user - validator RK) to re-encryption keys
 
