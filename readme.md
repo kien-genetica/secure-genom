@@ -43,7 +43,7 @@ The Secure Genome System is a privacy-preserving platform for genetic data proce
 
 - **Definition**:
   - A validator is a trusted node that participates in the consensus process and validates the data. For example, a hospital or a research institution.
-- **Purpose**: Validate the data and prepare the data for the consensus module.
+- **Purpose**: Validate the data and prepare the data for the processor module.
 - **Responsibilities**:
   - Encrypted data processing (fine-tuning, labeling, scoring)
   - Genetic data validation
