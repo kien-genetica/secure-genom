@@ -1,12 +1,12 @@
 ```mermaid
 sequenceDiagram
-    participant U as User
-    participant S as Storage
-    participant O as Organization
+    participant U as Data Owner Portal
+    participant S as Storage Service
+    participant O as Data Utilizers 
     participant G as Controller
-    participant V as Validator
+    participant V as Validator Portal 
     participant P as Processor (TEE)
-    participant DM as Delegate Module (TEE)
+    participant DM as Delegate Module 
 
 
 
@@ -24,19 +24,16 @@ sequenceDiagram
     G-->>U: List of un-authorized validators
     U->>U: 1. Generate re-encryption key (rk)<br/>for each validator <br/> 2. Encrypt RK for DM TEE
     U->>S: Store encrypted re-encryption keys
-    U->>G: Mapping (user - validator RK) to re-encryption keys
+   
 
     %% Data Upload with PRE
     Note over U,V: Data Upload Phase
     U->>U: Encrypt data with their own public key
     U->>S: Store encrypted data + public key
-    U->>G: Submit data's id
-    G->>G: Mapping file id to user
 
     %% Validator Processing
     Note over S,P: Validation Phase
-    V->>G: Get data location/metadata
-    G-->>V: Return metadata
+  
     V->>S: Get data + re-encryption key (encrypted)
     S-->>V: Return data
 
@@ -53,14 +50,12 @@ sequenceDiagram
     P->>P: 1. Process validations<br/>2. Calculate risk scores<br/>3. Handle rewards/slashing
     P->>P: Encrypt data for PRE
     P->>S: Store encrypted processed data
-    P->>G: Submit result id
 
     %% Organization Access
-    Note over S,G: Organization Access Phase
+    Note over S,G: Data Utilizer Access Phase
     O->>G: Request X records of case Y
     G->>G: 1. Check org permission <br/> 2. Check payment status
-    G->>DM: Send corresponding record ids
-    DM->>S: Get user encrypted data
+    G->>S: Get user encrypted data
     S-->>DM: return encrypted data (C-encrypted)
 
     Note over DM: proxy-re-encrypt for organization pubkey
