@@ -1,11 +1,11 @@
 package main
 
 import (
+	"context"
 	"log"
 
 	"github.com/kien6034/secure-genom/cmd/wire"
 	"github.com/kien6034/secure-genom/internal/domain/entity"
-	"github.com/kien6034/secure-genom/internal/domain/repository"
 	"github.com/kien6034/secure-genom/internal/infrastructure/storage/adapter"
 	"github.com/kien6034/secure-genom/internal/infrastructure/storage/memory"
 )
@@ -17,12 +17,11 @@ func main() {
 	// Initialize memory storage
 	dataStorage := memory.NewMemoryStorage[*entity.Data](dataIDGetter)
 
-	// Initialize repositories
-	dataUploadRepo := repository.NewDataUploadRepository(dataStorage)
-
-	// Wire the application
-	_, err := wire.InitializeApp(dataUploadRepo)
+	// Wire the application with the repository
+	app, err := wire.InitializeApp(dataStorage)
 	if err != nil {
 		log.Fatalf("Failed to initialize app: %v", err)
 	}
+
+	app.UploadService.UploadData(context.Background(), []byte("test"))
 }

@@ -16,7 +16,7 @@ type DataUpload struct {
 var _ DataUploadRepository = (*DataUpload)(nil)
 
 // NewDataUploadRepository creates a new DataUpload repository
-func NewDataUploadRepository(s storage.Storage[*entity.Data]) *DataUpload {
+func NewDataUploadRepository(s storage.Storage[*entity.Data]) DataUploadRepository {
 	return &DataUpload{Storage: s}
 }
 
