@@ -5,11 +5,10 @@ import (
 )
 
 type Service struct {
-	storage storage.StorageInterface
 }
 
-func NewService(storage storage.StorageInterface) *Service {
-	return &Service{storage: storage}
+func NewService() *Service {
+	return &Service{}
 }
 
 func (s *Service) ProcessReEncryption(
