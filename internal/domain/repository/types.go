@@ -11,3 +11,7 @@ type OrganizationRepository interface {
 	FindByID(ctx context.Context, id string) (*entity.Organization, error)
 	Update(ctx context.Context, org *entity.Organization) error
 }
+
+type DataUploadRepository interface {
+	StoreEncryptedData(ctx context.Context, data []byte) error
+}

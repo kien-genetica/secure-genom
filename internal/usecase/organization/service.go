@@ -3,15 +3,15 @@ package organization
 import (
 	"context"
 
-	"github.com/kien6034/secure-genom/internal/domain/repository"
+	organization "github.com/kien6034/secure-genom/internal/domain/repository"
 )
 
 type Service struct {
-	orgRepo repository.OrganizationRepository
+	orgRepo organization.OrganizationRepository
 }
 
 func NewService(
-	orgRepo repository.OrganizationRepository,
+	orgRepo organization.OrganizationRepository,
 ) *Service {
 	return &Service{
 		orgRepo: orgRepo,
