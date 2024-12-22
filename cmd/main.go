@@ -1,15 +1,28 @@
 package main
 
+import (
+	"log"
+
+	"github.com/kien6034/secure-genom/cmd/wire"
+	"github.com/kien6034/secure-genom/internal/domain/entity"
+	"github.com/kien6034/secure-genom/internal/domain/repository"
+	"github.com/kien6034/secure-genom/internal/infrastructure/storage/adapter"
+	"github.com/kien6034/secure-genom/internal/infrastructure/storage/memory"
+)
+
 func main() {
-	// // Initialize repositories
-	// dataUploadRepo := s3.NewDataUploadRepository()
-	// orgRepo := postgres.NewOrganizationRepository()
+	// Initialize ID getters
+	dataIDGetter := adapter.NewDataIDGetter()
 
-	// // Wire the application
-	// app, err := wire.InitializeApp(dataUploadRepo, orgRepo)
-	// if err != nil {
-	// 	log.Fatalf("Failed to initialize app: %v", err)
-	// }
+	// Initialize memory storage
+	dataStorage := memory.NewMemoryStorage[*entity.Data](dataIDGetter)
 
-	// Start your application logic here
+	// Initialize repositories
+	dataUploadRepo := repository.NewDataUploadRepository(dataStorage)
+
+	// Wire the application
+	_, err := wire.InitializeApp(dataUploadRepo)
+	if err != nil {
+		log.Fatalf("Failed to initialize app: %v", err)
+	}
 }

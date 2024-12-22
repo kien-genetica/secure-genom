@@ -7,8 +7,6 @@ import (
 	"github.com/google/uuid"
 	"github.com/kien6034/secure-genom/internal/domain/entity"
 	"github.com/kien6034/secure-genom/internal/infrastructure/storage"
-	"github.com/kien6034/secure-genom/internal/infrastructure/storage/adapter"
-	"github.com/kien6034/secure-genom/internal/infrastructure/storage/memory"
 )
 
 type DataUpload struct {
@@ -18,8 +16,8 @@ type DataUpload struct {
 var _ DataUploadRepository = (*DataUpload)(nil)
 
 // NewDataUploadRepository creates a new DataUpload repository
-func NewDataUploadRepository() *DataUpload {
-	return &DataUpload{Storage: memory.NewMemoryStorage[*entity.Data](adapter.NewDataIDGetter())}
+func NewDataUploadRepository(s storage.Storage[*entity.Data]) *DataUpload {
+	return &DataUpload{Storage: s}
 }
 
 func (r *DataUpload) StoreEncryptedData(ctx context.Context, data []byte) error {

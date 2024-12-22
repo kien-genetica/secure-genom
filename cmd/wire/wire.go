@@ -3,26 +3,23 @@ package wire
 import (
 	"github.com/google/wire"
 	"github.com/kien6034/secure-genom/internal/domain/repository"
-	"github.com/kien6034/secure-genom/internal/usecase/organization"
-	"github.com/kien6034/secure-genom/internal/usecase/upload"
+	usecase "github.com/kien6034/secure-genom/internal/usecase/upload"
 )
 
 type App struct {
-	UploadService *upload.Service
-	OrgService    *organization.Service
+	UploadService *usecase.UploadUseCase
 }
 
-var ProviderSet = wire.NewSet(
-	upload.NewService,
-	organization.NewService,
+var DataUploadUcaseSet = wire.NewSet(
+	repository.NewDataUploadRepository,
+	usecase.NewService,
 )
 
 func InitializeApp(
 	dataUploadRepo repository.DataUploadRepository,
-	orgRepo repository.OrganizationRepository,
 ) (*App, error) {
 	wire.Build(
-		ProviderSet,
+		DataUploadUcaseSet,
 		wire.Struct(new(App), "*"),
 	)
 	return nil, nil
