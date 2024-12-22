@@ -14,4 +14,5 @@ type OrganizationRepository interface {
 
 type DataUploadRepository interface {
 	StoreEncryptedData(ctx context.Context, data []byte) error
+	GetEncryptedData(ctx context.Context, id string) ([]byte, error)
 }
